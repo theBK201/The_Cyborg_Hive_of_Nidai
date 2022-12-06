@@ -23,6 +23,7 @@ public class WelcomeScreen implements Screen {
         game = aGame;
         stage = new Stage(new ScreenViewport());
 
+
         // A Screen Welcome Message
         Label title = new Label("The Cyborg \n Hive of Nidai", MyGdxGame.gameSkin, "title");
         title.setAlignment(Align.center);
@@ -37,7 +38,7 @@ public class WelcomeScreen implements Screen {
         playButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button ){
-//                game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
@@ -49,7 +50,7 @@ public class WelcomeScreen implements Screen {
         TextButton optionButton = new TextButton("Options", MyGdxGame.gameSkin);
         optionButton.setWidth(Gdx.graphics.getWidth()/2);
         optionButton.setPosition(240,120);
-        playButton.addListener(new InputListener(){
+        optionButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
 
