@@ -16,7 +16,7 @@ public class GameScreen implements Screen {
     }
     @Override
     public void show(){
-        Gdx.app.log("MainScreen","show");
+        Gdx.app.log("MainScreen","launched");
         Gdx.input.setInputProcessor(stage);
     }
 
