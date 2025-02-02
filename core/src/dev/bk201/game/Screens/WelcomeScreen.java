@@ -27,13 +27,13 @@ public class WelcomeScreen implements Screen {
         // A Screen Welcome Message
         Label title = new Label("The Cyborg \n Hive of Nidai", MyGdxGame.gameSkin, "title");
         title.setAlignment(Align.center);
-        title.setY(Gdx.graphics.getHeight()*2/3);
+        title.setY((float) (Gdx.graphics.getHeight() * 2) /3);
         title.setWidth(Gdx.graphics.getWidth());
         stage.addActor(title);
 
         // The Welcome screen buttons
         TextButton playButton= new TextButton("Play!", MyGdxGame.gameSkin);
-        playButton.setWidth(Gdx.graphics.getWidth()/2);
+        playButton.setWidth((float) Gdx.graphics.getWidth() /2);
         playButton.setPosition(240,170);
         playButton.addListener(new InputListener(){
             @Override
@@ -48,7 +48,7 @@ public class WelcomeScreen implements Screen {
         stage.addActor(playButton);
 
         TextButton optionButton = new TextButton("Options", MyGdxGame.gameSkin);
-        optionButton.setWidth(Gdx.graphics.getWidth()/2);
+        optionButton.setWidth((float) Gdx.graphics.getWidth() /2);
         optionButton.setPosition(240,120);
         optionButton.addListener(new InputListener(){
             @Override
