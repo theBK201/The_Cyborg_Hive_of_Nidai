@@ -53,7 +53,7 @@ public class WelcomeScreen implements Screen {
         optionButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button){
-
+                game.setScreen(new OptionsScreen(game));
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button){
