@@ -7,18 +7,14 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import dev.bk201.game.GameSettings;
-import dev.bk201.game.MyGdxGame;
 import dev.bk201.game.OptionsUI;
 
 public class OptionsScreen implements Screen {
     private Stage stage;
     private Game game;
-    private GameSettings settings;
 
     public OptionsScreen(Game aGame) {
         this.game = aGame;
-        this.settings = ((MyGdxGame) aGame).settings;
 
         stage = new Stage(new ScreenViewport());
 

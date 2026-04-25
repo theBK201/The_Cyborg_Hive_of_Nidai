@@ -4,9 +4,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Align;
@@ -23,12 +26,18 @@ public class WelcomeScreen implements Screen {
         game = aGame;
         stage = new Stage(new ScreenViewport());
 
-
         // A Screen Welcome Message
         Label title = new Label("The Cyborg \n Hive of Nidai", MyGdxGame.gameSkin, "title");
         title.setAlignment(Align.center);
         title.setY((float) (Gdx.graphics.getHeight() * 2) /3);
         title.setWidth(Gdx.graphics.getWidth());
+
+        //Welcome image
+        Texture startImageTexture = new Texture("assets/start-image.jpg");
+        Image bg = new Image(startImageTexture);
+        bg.setFillParent(true);
+
+        stage.addActor(bg);
         stage.addActor(title);
 
         // The Welcome screen buttons
@@ -72,13 +81,14 @@ public class WelcomeScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.act();
         stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
-
+        stage.getViewport().update(width, height, true);
     }
 
     @Override

@@ -37,7 +37,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Stage optionsStage;
     private Game game;
-    private GameSettings settings;
+    private final GameSettings settings;
     public SpriteBatch batch;
     public FitViewport viewport;
     private final Animation<TextureRegion> explosionAnim;

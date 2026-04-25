@@ -52,6 +52,7 @@ public class OptionsUI {
         back.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                settings.save();
                 onBack.run();
             }
         });
