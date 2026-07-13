@@ -29,7 +29,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import dev.bk201.game.GameSettings;
 import dev.bk201.game.MyGdxGame;
-import dev.bk201.game.OptionsUI;
+import dev.bk201.game.UI.OptionsUI;
 
 import java.util.Iterator;
 

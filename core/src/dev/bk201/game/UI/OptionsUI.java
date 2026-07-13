@@ -1,4 +1,4 @@
-package dev.bk201.game;
+package dev.bk201.game.UI;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Slider;
+import dev.bk201.game.GameSettings;
+import dev.bk201.game.MyGdxGame;
 
 public class OptionsUI {
     public static Table create(Game game, Runnable onBack) {

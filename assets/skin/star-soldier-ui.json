@@ -6,6 +6,9 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	title: {
 		file: font-title-export.fnt
 	}
+	paragraph: {
+		file: font-paragraph-export.fnt
+	}
 }
 com.badlogic.gdx.graphics.Color: {
 	black: {
@@ -102,6 +105,9 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	title: {
 		font: title
+	}
+	paragraph: {
+		font: paragraph
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {

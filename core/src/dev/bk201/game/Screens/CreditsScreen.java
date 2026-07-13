@@ -7,18 +7,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import dev.bk201.game.UI.OptionsUI;
+import dev.bk201.game.UI.CreditsUI;
 
-public class OptionsScreen implements Screen {
+public class CreditsScreen implements Screen {
     private Stage stage;
     private Game game;
 
-    public OptionsScreen(Game aGame) {
+    public CreditsScreen(Game aGame) {
         this.game = aGame;
-
         stage = new Stage(new ScreenViewport());
 
-        Table ui = OptionsUI.create(game, () -> {
+        Table ui = CreditsUI.create(game, () -> {
            game.setScreen(new WelcomeScreen(game));
         });
 
