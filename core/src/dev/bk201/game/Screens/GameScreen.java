@@ -12,15 +12,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
@@ -38,7 +34,8 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Stage optionsStage;
     private Game game;
-    private MenuInput menuInput;
+    private MenuInput gameOverMenuInput;
+    private MenuInput optionsMenuInput;
     private final GameSettings settings;
     public SpriteBatch batch;
     public FitViewport viewport;
@@ -102,6 +99,7 @@ public class GameScreen implements Screen {
         gameOverSound = Gdx.audio.newSound(Gdx.files.internal("assets/sounds/game-over.wav"));
         Drawable bgDrawable = MyGdxGame.gameSkin.getDrawable("dark-blue");
         Drawable fillDrawable = MyGdxGame.gameSkin.getDrawable("white");
+        Image selector = new Image(MyGdxGame.gameSkin.getDrawable("right-arrow"));
 
         //initializing Stage Actors
         pressSpace = new Label("Press SPACE", MyGdxGame.gameSkin);
@@ -139,11 +137,18 @@ public class GameScreen implements Screen {
         gameOverTable = new Table();
         gameOverTable.setFillParent(true);
         gameOverTable.center();
-        gameOverTable.add(gameOverLabel).padBottom(20).row();
+        gameOverTable.add(gameOverLabel).colspan(2).padBottom(20).row();
+
+        Cell<Image> restartSelector = gameOverTable.add(selector).width(30);
         gameOverTable.add(restartButton).width(200).height(80).row();
+        Cell<Actor> exitSelector = gameOverTable.add(new Actor()).width(30);
         gameOverTable.add(exitButton).width(200).height(80);
+
         gameOverTable.defaults().pad(3);
         gameOverTable.setVisible(false);
+
+        gameOverMenuInput = new MenuInput(restartButton, exitButton);
+        gameOverMenuInput.setSelector(selector, restartSelector, exitSelector);
 
         stage.addActor(pressSpace);
         stage.addActor(killsCounterTable);
@@ -156,7 +161,7 @@ public class GameScreen implements Screen {
             Gdx.input.setInputProcessor(stage);
         });
         optionsStage.addActor(optionUi.uiTable);
-        menuInput = new MenuInput(optionUi.backButton);
+        optionsMenuInput = new MenuInput(optionUi.backButton);
 
         //initializing Game Sprites and size
         shipSprite = new Sprite(shipTexture);
@@ -208,13 +213,14 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta){
-//        Gdx.gl.glClearColor(1,1,1,1);
-//        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         input(delta);
 
         if (optionsOpen) {
-            menuInput.update();
+            optionsMenuInput.update();
+        }
+        if (gameOver) {
+            gameOverMenuInput.update();
         }
 
         logic(delta);
@@ -261,7 +267,7 @@ public class GameScreen implements Screen {
             if (optionsOpen) {
                 pause = true;
                 Gdx.input.setInputProcessor(optionsStage);
-                menuInput.selectFirst();
+                optionsMenuInput.selectFirst();
             } else {
                 pause = false;
                 Gdx.input.setInputProcessor(stage);
@@ -368,6 +374,8 @@ public class GameScreen implements Screen {
                 gameOver = true;
                 gameOverTable.setVisible(true);
                 gameOverSound.play(settings.sfxVolume);
+                Gdx.input.setInputProcessor(stage);
+                gameOverMenuInput.selectFirst();
             }
 
             shipRectangle.set(shipSprite.getX(), shipSprite.getY(), shipSprite.getWidth(), shipSprite.getHeight());
