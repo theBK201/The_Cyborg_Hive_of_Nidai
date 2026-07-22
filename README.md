@@ -1,3 +1,7 @@
+![Java](https://img.shields.io/badge/Java-17-orange)
+![LibGDX](https://img.shields.io/badge/Engine-LibGDX-blue)
+![Status](https://img.shields.io/badge/Status-In%20Development-yellow)
+
 # 🚀 The Cyborg Hive of Nidai
 
 <p align="center">
@@ -62,6 +66,18 @@ The game features:
 
 ---
 
+## 🚀 Future Plans
+
+The goal is to expand **The Cyborg Hive of Nidai** into a bigger arcade experience.
+
+Planned features:
+
+- 👾 New enemy types with different behaviors
+- ⚡ Power-ups to improve the player's ship
+- 🏆 High score and leaderboard system
+- 👑 Boss fights with unique mechanics
+- 🌌 Additional levels with increasing difficulty
+
 ## 📦 Running The Game
 
 ### Requirements
@@ -69,8 +85,12 @@ The game features:
 - Java JDK 17+
 - Gradle
 
-### Clone the repository
+## 📜 License
 
-```bash
-git clone https://github.com/theBK201/The_Cyborg_Hive_of_Nidai.git
-cd YOUR_REPOSITORY
+The source code is available for viewing and learning purposes.
+
+You may not copy, modify, redistribute, or use this project or its assets commercially.
+
+## 🤝 Contributions
+
+Suggestions and feedback are welcome. Please contact the author before submitting code contributions, as this project may become a commercial release in the future.
