@@ -94,3 +94,13 @@ You may not copy, modify, redistribute, or use this project or its assets commer
 ## 🤝 Contributions
 
 Suggestions and feedback are welcome. Please contact the author before submitting code contributions, as this project may become a commercial release in the future.
+
+## 📦 Distribution
+
+The game is currently run from the source project.
+
+Future releases are planned to include a standalone desktop build, allowing players to launch the game without requiring Java or development tools.
+
+## 🎨 Credits
+
+In-game credits are available from the main menu.
