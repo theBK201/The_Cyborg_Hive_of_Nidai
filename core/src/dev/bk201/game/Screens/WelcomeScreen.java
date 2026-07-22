@@ -14,6 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import dev.bk201.game.Helpers.MenuInput;
 import dev.bk201.game.MyGdxGame;
 
 
@@ -24,12 +25,7 @@ public class WelcomeScreen implements Screen {
     private TextButton playButton;
     private TextButton optionButton;
     private TextButton creditsButton;
-    private Label selector;
-    private Cell<?>[] selectorCells;
-
-    private TextButton[] menuButtons;
-    private int selectedIndex = 0;
-
+    private MenuInput menuInput;
 
     public WelcomeScreen(Game aGame){
         game = aGame;
@@ -55,8 +51,7 @@ public class WelcomeScreen implements Screen {
         welcomeScreenTable.bottom();
 
         // The Welcome screen buttons
-        selector = new Label(">", MyGdxGame.gameSkin, "title");
-        selector.setVisible(false);
+        Image selector = new Image(MyGdxGame.gameSkin.getDrawable("right-arrow"));
         //avoids the warning by using a dummy Actor instead of an empty cell.
         Actor optionDummy = new Actor();
         Actor creditDummy = new Actor();
@@ -85,7 +80,7 @@ public class WelcomeScreen implements Screen {
             }
         });
 
-        Cell<Label> playSelector = welcomeScreenTable.add(selector).width(30);
+        Cell<Image> playSelector = welcomeScreenTable.add(selector).width(30);
         welcomeScreenTable.add(playButton).width(200).height(80).row();
 
         Cell<Actor> optionSelector = welcomeScreenTable.add(optionDummy);
@@ -96,29 +91,21 @@ public class WelcomeScreen implements Screen {
         creditSelector.width(30);
         welcomeScreenTable.add(creditsButton).width(200).height(80).row();
 
-        menuButtons = new TextButton[] {
-                playButton,
-                optionButton,
-                creditsButton
-        };
-
-        selectorCells = new Cell<?>[] {
-                playSelector,
-                optionSelector,
-                creditSelector
-        };
         stage.addActor(welcomeScreenTable);
+
+        menuInput = new MenuInput(playButton, optionButton, creditsButton);
+        menuInput.setSelector(selector, playSelector, optionSelector, creditSelector);
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
-        updateSelection();
+        menuInput.selectFirst();
     }
 
     @Override
     public void render(float delta) {
-        handleMenuInput();
+        menuInput.update();
 
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -152,36 +139,4 @@ public class WelcomeScreen implements Screen {
         stage.dispose();
     }
 
-    private void handleMenuInput() {
-        if (Gdx.input.isKeyJustPressed(Input.Keys.DOWN)) {
-            selectedIndex = (selectedIndex + 1) % menuButtons.length;
-            updateSelection();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.UP)) {
-            selectedIndex--;
-            if (selectedIndex < 0) {
-                selectedIndex = menuButtons.length - 1;
-            }
-            updateSelection();
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ENTER) ||
-                Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            activateSelection();
-        }
-    }
-
-    private void updateSelection() {
-        for (Cell<?> selectorCell : selectorCells) {
-            selectorCell.setActor(null);
-        }
-
-        selectorCells[selectedIndex].setActor(selector);
-        selector.setVisible(true);
-    }
-
-    private void activateSelection() {
-        menuButtons[selectedIndex].fire(new ChangeListener.ChangeEvent());
-    }
 }

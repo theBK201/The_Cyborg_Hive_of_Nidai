@@ -7,31 +7,37 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import dev.bk201.game.Helpers.MenuInput;
 import dev.bk201.game.UI.OptionsUI;
 
 public class OptionsScreen implements Screen {
     private Stage stage;
     private Game game;
+    private MenuInput menuInput;
 
     public OptionsScreen(Game aGame) {
         this.game = aGame;
 
         stage = new Stage(new ScreenViewport());
 
-        Table ui = OptionsUI.create(game, () -> {
+        OptionsUI ui = OptionsUI.create(game, () -> {
            game.setScreen(new WelcomeScreen(game));
         });
 
-        stage.addActor(ui);
+        stage.addActor(ui.uiTable);
+        menuInput = new MenuInput(ui.backButton);
     }
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+        menuInput.selectFirst();
     }
 
     @Override
     public void render(float delta) {
+        menuInput.update();
+
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

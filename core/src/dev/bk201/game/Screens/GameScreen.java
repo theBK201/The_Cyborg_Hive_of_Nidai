@@ -28,6 +28,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import dev.bk201.game.GameSettings;
+import dev.bk201.game.Helpers.MenuInput;
 import dev.bk201.game.MyGdxGame;
 import dev.bk201.game.UI.OptionsUI;
 
@@ -37,6 +38,7 @@ public class GameScreen implements Screen {
     private Stage stage;
     private Stage optionsStage;
     private Game game;
+    private MenuInput menuInput;
     private final GameSettings settings;
     public SpriteBatch batch;
     public FitViewport viewport;
@@ -148,12 +150,13 @@ public class GameScreen implements Screen {
         stage.addActor(hpTable);
         stage.addActor(gameOverTable);
 
-        Table optionUi = OptionsUI.create(game, ()-> {
+        OptionsUI optionUi = OptionsUI.create(game, ()-> {
             optionsOpen = false;
             pause = false;
             Gdx.input.setInputProcessor(stage);
         });
-        optionsStage.addActor(optionUi);
+        optionsStage.addActor(optionUi.uiTable);
+        menuInput = new MenuInput(optionUi.backButton);
 
         //initializing Game Sprites and size
         shipSprite = new Sprite(shipTexture);
@@ -209,6 +212,11 @@ public class GameScreen implements Screen {
 //        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act(delta);
         input(delta);
+
+        if (optionsOpen) {
+            menuInput.update();
+        }
+
         logic(delta);
         draw();
     }
@@ -253,6 +261,7 @@ public class GameScreen implements Screen {
             if (optionsOpen) {
                 pause = true;
                 Gdx.input.setInputProcessor(optionsStage);
+                menuInput.selectFirst();
             } else {
                 pause = false;
                 Gdx.input.setInputProcessor(stage);

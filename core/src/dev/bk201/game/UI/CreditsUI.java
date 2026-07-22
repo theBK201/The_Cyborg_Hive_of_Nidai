@@ -4,15 +4,25 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import dev.bk201.game.Helpers.MenuInput;
 import dev.bk201.game.MyGdxGame;
 
 public class CreditsUI {
-    public static Table create(Game game, Runnable onBack) {
+    public Table uiTable;
+    public TextButton backButton;
+
+    public CreditsUI(Table table, TextButton backButton) {
+        this.uiTable = table;
+        this.backButton = backButton;
+    }
+
+    public static CreditsUI create(Game game, Runnable onBack) {
         MyGdxGame g = (MyGdxGame) game;
 
         Table root = new Table();
@@ -49,6 +59,7 @@ public class CreditsUI {
         Label artworkLink2 = new Label("Game Assets - Magnific", MyGdxGame.gameSkin, "paragraph");
         makeLink(artworkLink2, "https://www.magnific.com/icon/spaceship_1702089#fromView=keyword&page=1&position=0&uuid=10895a52-6f6a-42f1-93bb-981b98e13ac3");
 
+        Image selector = new Image(MyGdxGame.gameSkin.getDrawable("right-arrow"));
         TextButton back = new TextButton("Back", MyGdxGame.gameSkin);
         back.addListener(new ChangeListener() {
             @Override
@@ -62,9 +73,14 @@ public class CreditsUI {
         root.add(artworkLink1).left().padBottom(20).row();
         root.add(artworkLink2).left().padBottom(20).row();
         root.add(new Label("Background And Homepage (AI Generated) - ChatGPT 5.5", MyGdxGame.gameSkin, "paragraph")).left().padBottom(20).row();
-        root.add(back).colspan(2).center().padTop(20).center().width(150);
 
-        return root;
+        Table backRow = new Table();
+        backRow.add(selector).width(30);
+        backRow.add(back).width(200).padLeft(10);
+
+        root.add(backRow).colspan(3).center().padTop(20).row();
+
+        return new CreditsUI(root, back);
     }
 
     private static void makeLink(Label label, String url) {

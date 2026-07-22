@@ -2,16 +2,21 @@ package dev.bk201.game.UI;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import dev.bk201.game.GameSettings;
 import dev.bk201.game.MyGdxGame;
 
 public class OptionsUI {
-    public static Table create(Game game, Runnable onBack) {
+    public Table uiTable;
+    public TextButton backButton;
+
+    public OptionsUI(Table table, TextButton backButton) {
+        this.uiTable = table;
+        this.backButton = backButton;
+    }
+
+    public static OptionsUI create(Game game, Runnable onBack) {
         MyGdxGame g = (MyGdxGame) game;
         GameSettings settings = g.settings;
 
@@ -50,6 +55,8 @@ public class OptionsUI {
             }
         });
 
+        Image selector = new Image(MyGdxGame.gameSkin.getDrawable("right-arrow"));
+
         TextButton back = new TextButton("Back", MyGdxGame.gameSkin);
         back.addListener(new ChangeListener() {
             @Override
@@ -74,9 +81,12 @@ public class OptionsUI {
         root.add(musicSlider).width(200);
         root.add(musicValueLabel).right().row();
 
-        root.add(back).colspan(3).center().padTop(20);
-        root.setWidth(400);
+        Table backRow = new Table();
+        backRow.add(selector).width(30);
+        backRow.add(back).width(200).padLeft(10);
 
-        return root;
+        root.add(backRow).colspan(3).center().padTop(20).row();
+
+        return new OptionsUI(root, back);
     }
 }
